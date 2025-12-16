@@ -4,12 +4,31 @@ import { Response, ToolParams } from '../types';
 import { responseHandler } from '../server/responseHandler';
 import { getDirName, joinPaths } from '../utils/pathUtils';
 import { FileCache } from '../server/cache';
+import { Defaults } from '../config/defaults';
 
 /**
  * Get file content tool
  * Inherits from AbstractFileTools base class to utilize common file operation functionality
  */
 export class GetFileTextByPathTool extends AbsFileTools<ToolParams['getFileTextByPath']> {
+    /**
+     * Structured output schema for MCP clients (structuredContent)
+     * Follows MCP tools spec outputSchema recommendation
+     */
+    public readonly outputSchema = {
+        type: 'object',
+        properties: {
+            pathInProject: { type: 'string' },
+            content: { type: 'string' },
+            encoding: { type: 'string' },
+            truncated: { type: 'boolean' },
+            length: { type: 'number' },
+            totalLength: { type: 'number' },
+            maxCharacters: { type: 'number' },
+        },
+        required: ['pathInProject', 'content'],
+    };
+
     constructor() {
         super(
             'get_file_text_by_path',
@@ -18,6 +37,13 @@ export class GetFileTextByPathTool extends AbsFileTools<ToolParams['getFileTextB
                 type: 'object',
                 properties: {
                     pathInProject: { type: 'string' },
+                    encoding: {
+                        type: 'string',
+                        enum: ['utf-8'],
+                    },
+                    maxCharacters: {
+                        type: 'number',
+                    },
                 },
                 required: ['pathInProject'],
             }
@@ -29,19 +55,63 @@ export class GetFileTextByPathTool extends AbsFileTools<ToolParams['getFileTextB
      */
     protected async execute(
         absolutePath: string,
-        _args: ToolParams['getFileTextByPath']
+        args: ToolParams['getFileTextByPath']
     ): Promise<Response> {
         try {
-            // Use base class cached file read method
-            const text = await this.getFileContent(absolutePath, true);
+            const { encoding, maxCharacters } = args;
+
+            // Currently we only support UTF-8 decoding via TextDecoder
+            if (encoding && encoding.toLowerCase() !== 'utf-8' && encoding.toLowerCase() !== 'utf8') {
+                return responseHandler.failure(
+                    `Only 'utf-8' encoding is currently supported for get_file_text_by_path`,
+                );
+            }
+
+            // Use base class cached file read method (UTF-8)
+            const fullText = await this.getFileContent(absolutePath, true);
+            const originalLength = fullText.length;
+
+            // Determine effective maxCharacters
+            const effectiveMaxCharacters =
+                typeof maxCharacters === 'number' && Number.isFinite(maxCharacters) && maxCharacters > 0
+                    ? maxCharacters
+                    : Defaults.Limits.maxFileReadCharacters;
+
+            let text = fullText;
+            let truncated = false;
+
+            if (effectiveMaxCharacters && text.length > effectiveMaxCharacters) {
+                text = text.slice(0, effectiveMaxCharacters);
+                truncated = true;
+            }
+
+            const pathInProject = this.getRelativePath(absolutePath);
+
             this.log.info(
-                `Successfully read file content: ${absolutePath}, size: ${text.length} characters`
+                `Successfully read file content: ${absolutePath}, size: ${text.length} characters` +
+                    (truncated ? ` (truncated from ${originalLength} characters)` : ''),
             );
 
-            return responseHandler.success({
+            const structuredContent = {
+                pathInProject,
+                encoding: 'utf-8',
                 content: text,
-                pathInProject: this.getRelativePath(absolutePath),
-            });
+                truncated,
+                length: text.length,
+                totalLength: originalLength,
+                maxCharacters: effectiveMaxCharacters,
+            };
+
+            return {
+                content: [
+                    {
+                        type: 'text',
+                        text,
+                    },
+                ],
+                isError: false,
+                structuredContent,
+            };
         } catch (err: unknown) {
             return this.handleFileSystemError(err, absolutePath, 'reading');
         }
@@ -305,10 +375,10 @@ export class ReplaceFileContentAtPositionTool extends AbsFileTools<
 
             // Read current file content
             const currentContent = await this.readFile(fileUri);
-            
+
             // Detect original line ending format
             const originalLineEnding = currentContent.includes('\r\n') ? '\r\n' : '\n';
-            
+
             // Normalize to LF for processing (preserves line structure)
             const normalizedContent = currentContent.replace(/\r\n/g, '\n');
             const lines = normalizedContent.split('\n');

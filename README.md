@@ -12,9 +12,9 @@
 [![Open VSX Downloads](https://img.shields.io/open-vsx/dt/bugstan/gg-mcp-for-vscode?label=Downloads)](https://open-vsx.org/extension/bugstan/gg-mcp-for-vscode)
 
 
-**Enable MCP support for AI assistants.** Let **Claude Desktop** work directly inside your IDE.
+**Run a local MCP server for your VS Code workspace.** Let **Claude Desktop** and other MCP clients work directly on your code via the Model Context Protocol.
 
-This extension provides a **compliant Model Context Protocol (MCP) Server** compatible with **VS Code**, **Cursor**, **Windsurf**, and **Antigravity**.
+This extension provides a **compliant Model Context Protocol (MCP) server** for your VS Code workspace, compatible with **VS Code**, **Cursor**, **Windsurf**, and **Antigravity** via MCP clients.
 
 It acts as the bridge between your local codebase and **Claude Desktop**: Claude initiates the instructions, and this extension acts as the server to **execute development work**—reading files, editing code, and running commands—in your workspace.
 

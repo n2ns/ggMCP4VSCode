@@ -66,9 +66,20 @@ export type ToolHandler = (args: any) => Promise<Response>;
  */
 export interface ToolParams {
     // File tool parameters
-    createNewFileWithText: { pathInProject: string; text: string };
+        createNewFileWithText: { pathInProject: string; text: string };
     findFilesByNameSubstring: { nameSubstring: string; caseSensitive?: boolean };
-    getFileTextByPath: { pathInProject: string };
+        getFileTextByPath: {
+            pathInProject: string;
+            /**
+             * Maximum number of characters to return from the file.
+             * If omitted, a sensible default from Defaults.Limits.maxFileReadCharacters is used.
+             */
+            maxCharacters?: number;
+            /**
+             * Text encoding of the file content. Currently only 'utf-8' is supported.
+             */
+            encoding?: string;
+        };
     rewriteFileContent: { pathInProject: string; text: string };
     replaceFileContentAtPosition: {
         pathInProject: string;

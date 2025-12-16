@@ -46,6 +46,7 @@ export class RequestHandler {
                 description: tool.description,
                 inputSchema: tool.inputSchema,
                 // Include annotations if present
+                ...(tool.outputSchema && { outputSchema: tool.outputSchema }),
                 ...(tool.annotations && { annotations: tool.annotations }),
             }));
 
@@ -260,6 +261,7 @@ export class RequestHandler {
             ).join(' '),
             description: tool.description,
             inputSchema: tool.inputSchema,
+            ...(tool.outputSchema && { outputSchema: tool.outputSchema }),
             ...(tool.annotations && { annotations: tool.annotations }),
         }));
     }

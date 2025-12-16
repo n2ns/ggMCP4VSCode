@@ -181,5 +181,7 @@ export const Defaults = {
         largeFileReloadDelayMs: 100,
         /** Small file reload delay (milliseconds) */
         smallFileReloadDelayMs: 10,
+        /** Default maximum number of characters returned when reading a file via tools */
+        maxFileReadCharacters: 100000,
     },
 };

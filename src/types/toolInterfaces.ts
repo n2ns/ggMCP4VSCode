@@ -33,6 +33,8 @@ export interface McpTool<Args = Record<string, any>> {
     description: string;
     /** JSON Schema defining expected input parameters */
     inputSchema: JsonSchemaObject;
+    /** Optional JSON Schema defining structured output (for structuredContent) */
+    outputSchema?: JsonSchemaObject;
     /** Optional human-readable name for display purposes */
     title?: string;
     /** Optional properties describing tool behavior */
