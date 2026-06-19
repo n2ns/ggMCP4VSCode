@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/n2ns-ggmcp4vscode-badge.png)](https://mseep.ai/app/n2ns-ggmcp4vscode)
+
 # GG MCP for VSCode
 
 [🇨🇳 中文文档](docs/README-zh.md) | [🇺🇸 English](README.md)
