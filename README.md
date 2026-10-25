@@ -3,7 +3,7 @@
 [🇨🇳 中文文档](docs/README-zh.md) | [🇺🇸 English](README.md)
 
 [![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/n2ns/ggMCP4VSCode)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/n2ns/ggMCP4VSCode/blob/main/LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/n2ns/ggMCP4VSCode/blob/main/LICENSE)
 [![MCP Compliant](https://img.shields.io/badge/MCP-Fully%20Compliant-success)](https://modelcontextprotocol.io/)
 
 [![VS Code Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/bugstan.gg-mcp-for-vscode?label=VS%20Code)](https://marketplace.visualstudio.com/items?itemName=bugstan.gg-mcp-for-vscode)
@@ -112,7 +112,7 @@ Find options by searching for "ggMCP" in VS Code settings:
 
 ## 📝 License
 
-[MIT](LICENSE)
+[Apache-2.0](LICENSE)
 
 ---
 
