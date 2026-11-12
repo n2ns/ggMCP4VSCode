@@ -2,14 +2,11 @@
 
 [🇺🇸 English Document](../README.md)
 
-[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/n2ns/ggMCP4VSCode)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/n2ns/ggMCP4VSCode/blob/main/LICENSE)
-[![MCP Compliant](https://img.shields.io/badge/MCP-Fully%20Compliant-success)](https://modelcontextprotocol.io/)
-
-[![VS Code Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/bugstan.gg-mcp-for-vscode?label=VS%20Code)](https://marketplace.visualstudio.com/items?itemName=bugstan.gg-mcp-for-vscode)
-[![VS Code Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/bugstan.gg-mcp-for-vscode)](https://marketplace.visualstudio.com/items?itemName=bugstan.gg-mcp-for-vscode)
+[![VS Code Marketplace Version](https://vsmarketplacebadges.dev/version/bugstan.gg-mcp-for-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=bugstan.gg-mcp-for-vscode)
+[![VS Code Marketplace Downloads](https://vsmarketplacebadges.dev/installs/bugstan.gg-mcp-for-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=bugstan.gg-mcp-for-vscode)
 [![Open VSX Version](https://img.shields.io/open-vsx/v/bugstan/gg-mcp-for-vscode?label=Open%20VSX)](https://open-vsx.org/extension/bugstan/gg-mcp-for-vscode)
 [![Open VSX Downloads](https://img.shields.io/open-vsx/dt/bugstan/gg-mcp-for-vscode?label=Downloads)](https://open-vsx.org/extension/bugstan/gg-mcp-for-vscode)
+[![license](https://img.shields.io/github/license/n2ns/ggMCP4VSCode)](https://github.com/n2ns/ggMCP4VSCode/blob/main/LICENSE)
 
 
 **为 AI 助手启用 MCP 支持。** 让 **Claude Desktop** 直接在您的 IDE 中工作。
